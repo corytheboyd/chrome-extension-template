@@ -1,0 +1,19 @@
+{
+  "name": "chrome-extension-update-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Cory Boyd <cory@grooveapp.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": ""
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12"
+  },
+  "dependencies": {
+    "copy-webpack-plugin": "^4.5.1"
+  }
+}

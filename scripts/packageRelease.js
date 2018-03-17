@@ -7,17 +7,16 @@ const path = require('path');
 
 const chromeExtensionManifestPath = path.resolve(__dirname, '..', 'src', 'manifest.json');
 const chromeExtensionManifest = require(chromeExtensionManifestPath);
-
 const VERSION = chromeExtensionManifest.version;
-
-const releasesPath = path.join(__dirname, '..', 'releases');
+const releasesDir = path.join(__dirname, '..', 'releases');
+const buildDir = path.join(__dirname, '..', 'build');
 
 // Create releases directory if it does not exist
-rimraf(releasesPath);
-fs.mkdirSync(releasesPath);
+rimraf(releasesDir);
+fs.mkdirSync(releasesDir);
 
 const releaseFileName = `release-${VERSION}.zip`;
-const output = fs.createWriteStream(path.join(releasesPath, releaseFileName));
+const output = fs.createWriteStream(path.join(releasesDir, releaseFileName));
 var archive = archiver('zip', {
   zlib: { level: 9 } // Sets the compression level.
 });
@@ -55,7 +54,6 @@ archive.on('error', function(err) {
 archive.pipe(output);
 
 // pipe archive data to the file
-const buildDir = path.join(__dirname, '..', 'build');
 const buildGlob = path.join(buildDir, '**', '*');
 
 archive.glob(buildGlob);

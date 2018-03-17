@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import ReactFrame from 'react-frame-component';
 
-import App from './App';
+import Root from './Root';
 
 const rootNode = document.createElement('div');
 document.body.appendChild(rootNode);
@@ -13,7 +13,7 @@ export function initialize () {
   render(
     (
       <ReactFrame>
-        <App />
+        <Root />
       </ReactFrame>
     ),
     rootNode,

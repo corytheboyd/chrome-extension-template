@@ -5,11 +5,15 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
   entry: {
     background: './src/background/index.js',
+    contentScript: './src/contentScript/index.js',
   },
   output: {
     path: path.resolve(__dirname, 'build'),
   },
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
+  watchOptions: {
+    ignored: /node_modules/
+  },
   plugins: [
     new CleanWebpackPlugin(['build']),
     new CopyWebpackPlugin([

@@ -49,24 +49,43 @@ const { PORT_NAME, CHROME_TABS_CHANGE_INFO } = require('../constants');
 const ports = {};
 global.ports = ports;
 
-const onTabRemovedHandler = (tabId) => {
-  console.debug('TAB CLOSED', tabId);
-
+const disconnectAndRemovePortForTabId = (tabId) => {
   const port = ports[tabId];
   port.disconnect();
   delete ports[tabId];
+}
+
+const isTabConnected = (tabId) => {
+  return Object.keys(ports).includes(tabId.toString());
+}
+
+const getPortForTabId = (tabId) => {
+  return ports[tabId] || null;
+}
+
+const onTabRemovedHandler = (tabId) => {
+  console.debug('TAB REMOVED', tabId);
+  if (!isTabConnected(tabId)) return;
+
+  disconnectAndRemovePortForTabId(tabId);
 };
 
 const onTabUpdatedHandler = (tabId, changeInfo) => {
   if (changeInfo.status === CHROME_TABS_CHANGE_INFO.STATUS.LOADING) {
-    console.debug('TAB LOAD START', tabId);
+    // If the tab is in ports and the tab update is starting, the tab was reloaded. Disconnect the
+    // old port and then remove it from state.
+    if (isTabConnected(tabId)) {
+      console.debug('TAB RELOADED', tabId);
+
+      disconnectAndRemovePortForTabId(tabId);
+    }
   }
 
   if (changeInfo.status === CHROME_TABS_CHANGE_INFO.STATUS.COMPLETE) {
     console.debug('TAB LOAD COMPLETE', tabId);
 
     const port = chrome.tabs.connect(tabId, { name: PORT_NAME, frameId: 0 });
-    ports[port.sender.tab.id] = port;
+    ports[tabId] = port;
   }
 };
 

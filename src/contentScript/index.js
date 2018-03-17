@@ -13,8 +13,6 @@ const onConnectHandler = (newPort) => {
   if (newPort.name !== PORT_NAME) return;
 
   newPort.onDisconnect.addListener(onPortDisconnectHandler);
-
-  console.debug('CONNECTED TO BACKGROUND', newPort);
   port = newPort;
 }
 

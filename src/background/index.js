@@ -75,8 +75,6 @@ const onTabUpdatedHandler = (tabId, changeInfo) => {
     // If the tab is in ports and the tab update is starting, the tab was reloaded. Disconnect the
     // old port and then remove it from state.
     if (isTabConnected(tabId)) {
-      console.debug('TAB RELOADED', tabId);
-
       disconnectAndRemovePortForTabId(tabId);
     }
   }

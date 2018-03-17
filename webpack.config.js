@@ -26,14 +26,18 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /nod_modules/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
             presets: [
               'env',
               'react',
-            ]
+              'stage-0',
+            ],
+            plugins: [
+              'transform-decorators-legacy',
+            ],
           }
         },
       },

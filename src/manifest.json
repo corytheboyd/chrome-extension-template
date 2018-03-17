@@ -2,12 +2,13 @@
   "manifest_version": 2,
   "name": "Chrome Extension Update Test",
   "description": "testing updates and stuff",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "permissions": [
     "notifications"
   ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background.js"],
+    "persistent": false
   },
   "content_scripts": [],
   "web_accessible_resources": []

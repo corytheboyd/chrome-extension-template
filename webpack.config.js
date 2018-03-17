@@ -3,6 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   entry: {
     background: './src/background/index.js',
     contentScript: './src/contentScript/index.js',
@@ -20,5 +21,22 @@ module.exports = {
       { from: './src/manifest.json' },
       { from: './images', to: 'images' }
     ]),
-  ]
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /nod_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              'env',
+              'react',
+            ]
+          }
+        },
+      },
+    ],
+  },
 };

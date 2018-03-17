@@ -1,4 +1,6 @@
-console.log('Hello, content script', new Date());
+import { initialize as initializeUi } from './ui';
+
+initializeUi();
 
 const { PORT_NAME } = require('../constants');
 let port = null;

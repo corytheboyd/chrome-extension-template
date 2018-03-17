@@ -14,7 +14,7 @@ module.exports = {
     new CleanWebpackPlugin(['build']),
     new CopyWebpackPlugin([
       { from: './src/manifest.json' },
-      { from: './src/background.html' },
-    ])
+      { from: './images', to: 'images' }
+    ]),
   ]
 };

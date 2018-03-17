@@ -7,6 +7,7 @@
   "private": true,
   "scripts": {
     "build": "./node_modules/webpack-cli/bin/webpack.js",
+    "watch": "./node_modules/webpack-cli/bin/webpack.js --watch",
     "packageRelease": "./scripts/packageRelease.js",
     "uploadRelease": "./scripts/uploadRelease.js",
     "publishRelease": "./scripts/publishRelease.js"

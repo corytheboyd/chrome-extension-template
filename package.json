@@ -1,6 +1,6 @@
 {
   "name": "chrome-extension-update-test",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "index.js",
   "author": "Cory Boyd <cory@grooveapp.com>",
   "license": "MIT",

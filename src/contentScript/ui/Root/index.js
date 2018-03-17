@@ -4,6 +4,8 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
 import { createGenerateClassName, jssPreset } from 'material-ui/styles';
 
+import CssBaseline from 'material-ui/CssBaseline';
+
 import App from '../App';
 
 export default class Root extends Component {
@@ -34,7 +36,10 @@ export default class Root extends Component {
         jss={this.jss}
         generateClassName={this.generateClassName}
       >
-        <App />
+        <div>
+          <CssBaseline />
+          <App />
+        </div>
       </JssProvider>
     );
   }

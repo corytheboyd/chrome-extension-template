@@ -12,7 +12,17 @@ export function initialize () {
 
   render(
     (
-      <ReactFrame>
+      <ReactFrame
+        frameBorder="0"
+        scrolling="no"
+        style={{
+          position: 'fixed',
+          right: 0,
+          bottom: 0,
+          width: 0,
+          height: 0,
+        }}
+      >
         <Root />
       </ReactFrame>
     ),

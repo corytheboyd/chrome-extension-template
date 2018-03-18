@@ -16,31 +16,53 @@ export default class Root extends Component {
 
   generateClassName = createGenerateClassName();
   jss = null;
+  iframeNode = null;
 
   componentWillMount() {
-    const { window, document } = this.context;
+    const { window: iframeWindow, document: iframeDocument } = this.context;
 
-    console.log('window', window);
-    console.log('document', document);
+    // Save reference to the iframe DOM note while we have enough context
+    const allIframeNodes = window.document.querySelectorAll('iframe');
+    this.iframeNode = Array.from(allIframeNodes).find((node) => {
+      return iframeWindow === node.contentWindow;
+    });
 
-    const styleNode = document.createComment("jss-insertion-point");
-    document.head.insertBefore(styleNode, document.head.firstChild);
+    const styleNode = iframeDocument.createComment("jss-insertion-point");
+    iframeDocument.head.insertBefore(styleNode, iframeDocument.head.firstChild);
 
     this.jss = create(jssPreset());
     this.jss.options.insertionPoint = styleNode;
   }
 
+  componentDidMount() {
+    this.adjustFrameDimentions();
+  }
+
+  componentDidUpdate() {
+    this.adjustFrameDimentions();
+  }
+
+  adjustFrameDimentions = () => {
+    // Control outer iframe style
+    const { document: iframeDocument } = this.context;
+
+    this.iframeNode.style.height = `${iframeDocument.body.scrollHeight}px`;
+    this.iframeNode.style.width = `${iframeDocument.body.scrollWidth}px`;
+  };
+
   render() {
     return (
-      <JssProvider
-        jss={this.jss}
-        generateClassName={this.generateClassName}
-      >
-        <div>
-          <CssBaseline />
-          <App />
-        </div>
-      </JssProvider>
+      <div>
+        <JssProvider
+          jss={this.jss}
+          generateClassName={this.generateClassName}
+        >
+          <div>
+            <CssBaseline />
+            <App />
+          </div>
+        </JssProvider>
+      </div>
     );
   }
 }

@@ -17,6 +17,7 @@ export default class Root extends Component {
   generateClassName = createGenerateClassName();
   jss = null;
   iframeNode = null;
+  rootAppNode = null;
 
   componentWillMount() {
     const { window: iframeWindow, document: iframeDocument } = this.context;
@@ -27,6 +28,8 @@ export default class Root extends Component {
       return iframeWindow === node.contentWindow;
     });
 
+    global.iframeNode = this.iframeNode;
+
     const styleNode = iframeDocument.createComment("jss-insertion-point");
     iframeDocument.head.insertBefore(styleNode, iframeDocument.head.firstChild);
 
@@ -34,21 +37,25 @@ export default class Root extends Component {
     this.jss.options.insertionPoint = styleNode;
   }
 
-  componentDidMount() {
-    this.adjustFrameDimentions();
-  }
-
-  componentDidUpdate() {
-    this.adjustFrameDimentions();
-  }
+  setAppRootNode = (node) => {
+    this.rootAppNode = node;
+  };
 
   adjustFrameDimentions = () => {
-    // Control outer iframe style
-    const { document: iframeDocument } = this.context;
-
-    this.iframeNode.style.height = `${iframeDocument.body.scrollHeight}px`;
-    this.iframeNode.style.width = `${iframeDocument.body.scrollWidth}px`;
+    if (!this.rootAppNode) return;
+    this.iframeNode.style.height = `${this.rootAppNode.offsetHeight}px`;
+    this.iframeNode.style.width = `${this.rootAppNode.offsetWidth}px`;
   };
+
+  componentDidMount() {
+    // Always be watching height/width adjustments
+    const adjustFrameDimentions = this.adjustFrameDimentions;
+    function raf() {
+      adjustFrameDimentions();
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }
 
   render() {
     return (
@@ -59,7 +66,7 @@ export default class Root extends Component {
         >
           <div>
             <CssBaseline />
-            <App />
+            <App setAppRootNode={this.setAppRootNode} />
           </div>
         </JssProvider>
       </div>

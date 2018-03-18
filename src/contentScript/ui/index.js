@@ -1,7 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import ReactFrame from 'react-frame-component';
 
+import store from '../redux/store'
 import Root from './Root';
 
 const rootNode = document.createElement('div');
@@ -23,7 +25,9 @@ export function initialize () {
           height: 0,
         }}
       >
-        <Root />
+        <Provider store={store}>
+          <Root />
+        </Provider>
       </ReactFrame>
     ),
     rootNode,

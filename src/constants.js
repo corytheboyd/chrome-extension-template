@@ -4,4 +4,4 @@ export const CHROME_TABS_CHANGE_INFO = {
     LOADING: 'loading',
     COMPLETE: 'complete',
   }
-}
+};

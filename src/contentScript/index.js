@@ -4,7 +4,6 @@ initializeUi();
 
 const { PORT_NAME } = require('../constants');
 let port = null;
-global.port = port;
 
 const onPortDisconnectHandler = (port) => {
   console.debug('DISCONNECTED FROM BACKGROUND', port);

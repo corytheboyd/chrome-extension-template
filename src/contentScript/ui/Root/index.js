@@ -28,8 +28,6 @@ export default class Root extends Component {
       return iframeWindow === node.contentWindow;
     });
 
-    global.iframeNode = this.iframeNode;
-
     const styleNode = iframeDocument.createComment("jss-insertion-point");
     iframeDocument.head.insertBefore(styleNode, iframeDocument.head.firstChild);
 

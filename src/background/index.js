@@ -47,21 +47,20 @@ console.debug('Hello, world!', new Date());
 // Content script connections
 const { PORT_NAME, CHROME_TABS_CHANGE_INFO } = require('../constants');
 const ports = {};
-global.ports = ports;
 
 const disconnectAndRemovePortForTabId = (tabId) => {
   const port = ports[tabId];
   port.disconnect();
   delete ports[tabId];
-}
+};
 
 const isTabConnected = (tabId) => {
   return Object.keys(ports).includes(tabId.toString());
-}
+};
 
 const getPortForTabId = (tabId) => {
   return ports[tabId] || null;
-}
+};
 
 const onTabRemovedHandler = (tabId) => {
   console.debug('TAB REMOVED', tabId);

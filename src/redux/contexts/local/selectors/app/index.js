@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import root from '../root';
 
-export const isInitialized = createSelector(
+export const name = createSelector(
   root,
-  root => root.app.isInitialized,
+  root => root.app.name,
 );

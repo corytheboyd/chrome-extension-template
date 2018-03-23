@@ -4,11 +4,11 @@ import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 
 import { blue } from 'material-ui/colors'
-import Button from 'material-ui/Button';
+import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 
-import { initialize } from '../../redux/contexts/local/actions/app/index';
-import { isInitialized } from '../../redux/contexts/local/selectors/app/index';
+import { setName } from '../../redux/contexts/local/actions/app/index';
+import { name } from '../../redux/contexts/local/selectors/app/index';
 
 const styles = theme => ({
   root: {
@@ -21,20 +21,20 @@ const styles = theme => ({
 
 @connect(
   (state) => ({
-    isInitialized: isInitialized(state),
+    name: name(state),
   }),
   {
-    initialize,
+    setName,
   },
 )
 @withStyles(styles)
 export default class App extends PureComponent {
   static propTypes = {
     // Redux state
-    isInitialized: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
 
     // Redux action dispatch
-    initialize: PropTypes.func.isRequired,
+    setName: PropTypes.func.isRequired,
 
     // React props
     setAppRootNode: PropTypes.func.isRequired,
@@ -50,15 +50,19 @@ export default class App extends PureComponent {
     setAppRootNode(this.appRootNode);
   }
 
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+  };
+
   render() {
     // HOC
     const { classes } = this.props;
 
     // Redux state
-    const { isInitialized } = this.props;
+    const { name } = this.props;
 
     // Redux action dispatch
-    const { initialize } = this.props;
+    const { setName } = this.props;
 
     return (
       <div
@@ -71,22 +75,18 @@ export default class App extends PureComponent {
           Hello, world!
         </Typography>
 
-        {isInitialized && (
-          <Typography
-            variant="display2"
-          >
-            WE ARE FULLY INITIALIZED
-          </Typography>
-        )}
-
-        <Button
-          disabled={isInitialized}
-          onClick={() => initialize()}
-          variant="raised"
-          color="primary"
+        <form
+          noValidate
+          autoComplete="off"
+          onSubmit={this.handleFormSubmit}
         >
-          Initialize
-        </Button>
+          <TextField
+            id="name"
+            label="Name"
+            value={name}
+            onChange={event => setName(event.target.value)}
+          />
+        </form>
       </div>
     );
   }

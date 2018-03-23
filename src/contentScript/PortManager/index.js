@@ -3,16 +3,20 @@ import { PORT_NAME } from '../../constants';
 export default class PortManager {
   constructor() {
     this.port = null;
+    this.messageHandler = () => {};
   }
 
   _onPortDisconnect = () => {
-    console.info('port disconnected');
-
     this.port = null;
+  };
+
+  _onPortMessage = (message) => {
+    this.messageHandler.call(null, message);
   };
 
   _registerPortWatchers = () => {
     this.port.onDisconnect.addListener(this._onPortDisconnect);
+    this.port.onMessage.addListener(this._onPortMessage);
   };
 
   _unregisterPortWatchers = () => {
@@ -39,5 +43,14 @@ export default class PortManager {
    * */
   unregisterWatchers() {
     chrome.runtime.onConnect.removeListener(this._handleConnect);
+  }
+
+  /**
+   * @param {function} handler
+   *
+   * @return {void}
+   * */
+  onMessage(handler) {
+    this.messageHandler = handler;
   }
 }

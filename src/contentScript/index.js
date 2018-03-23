@@ -1,9 +1,31 @@
+import { createStore, applyMiddleware } from 'redux';
+
 import PortManager from './PortManager';
 import { initialize as initializeUi } from '../ui';
-import store from '../redux/store'
+import rootReducer from '../redux';
+
+/**
+ * Watch for Global effects. Forward them to the background for processing.
+ * */
+const middleware = store => next => action => {
+  if (action.meta && action.meta.source === 'GLOBAL') {
+
+  }
+
+  next(action);
+};
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(middleware)
+);
+global.store = store;
 
 const portManager = new PortManager();
 portManager.registerWatchers();
+portManager.onMessage((message) => {
+  console.info('MESSAGE', message);
+});
 
 global.portManager = portManager;
 

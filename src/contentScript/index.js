@@ -22,7 +22,6 @@ portManager.onMessage((message) => {
   store.dispatch(message);
 });
 
-
 global.store = store;
 global.portManager = portManager;
 

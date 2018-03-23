@@ -5,12 +5,18 @@ export {
 };
 
 export default class PortManager {
-  constructor(repository) {
+  /**
+   * @param {Repository} repository
+   * @param {ActionHandler} actionHandler
+   * */
+  constructor(repository, actionHandler) {
     this.repository = repository;
+    this.actionHandler = actionHandler;
   }
 
   _onPortMessage = (message) => {
-    console.log('PORT MESSAGE', message);
+    // TODO multiplex message. Assuming it's a FSA meant for Redux right now
+    this.actionHandler.process(message);
   };
 
   _registerPortListeners = (port) => {

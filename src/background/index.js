@@ -1,8 +1,10 @@
+import ActionHandler from './ActionHandler';
 import PortManager, { Repository as PortRepository } from './PortManager';
 import TabManager from './TabManager';
 
 const portRepository = new PortRepository();
-const portManager = new PortManager(portRepository);
+const actionHandler = new ActionHandler();
+const portManager = new PortManager(portRepository, actionHandler);
 const tabManager = new TabManager(portManager);
 
 global.tabManager = tabManager;

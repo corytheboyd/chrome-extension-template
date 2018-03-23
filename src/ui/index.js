@@ -3,15 +3,17 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import ReactFrame from 'react-frame-component';
 
-import store from '../redux/store'
-import Root from './Root';
+import Root from './Root/index';
 
-const rootNode = document.createElement('div');
-document.body.appendChild(rootNode);
-
-export function initialize () {
-  console.log('initialize UI');
-
+/**
+ * Bootstrap the UI. Must provide a DOM note to render into, and a Redux Store instance.
+ *
+ * @param {HTMLDivElement} rootNode Where you want the UI to be injected.
+ * @param {Store} store Instance of a Redux Store.
+ *
+ * @return {void}
+ * */
+export function initialize (rootNode, store) {
   render(
     (
       <ReactFrame

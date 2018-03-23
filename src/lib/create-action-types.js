@@ -1,6 +1,6 @@
 /**
  * @param {object} actionTypes
- * @param {Array.<string>} namespace
+ * @param {...string} namespace
  *
  * @return {object}
  * */

@@ -3,7 +3,7 @@ const createDebugNotification = (event, details = null) => {
 
   chrome.notifications.create({
     type: 'basic',
-    iconUrl: 'images/groove.png',
+    iconUrl: 'images/chrome-icon.png',
     title: 'Chrome Runtime Event',
     message: `${event} - details: ${JSON.stringify(details)}`,
   });

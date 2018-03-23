@@ -1,8 +1,8 @@
-import createActionTypes from '../../../../lib/create-action-types';
+import createActionTypes from '../../../../../lib/create-action-types';
 
 export const types = createActionTypes({
   INITIALIZE: null,
-}, 'ACTIONS', 'EXAMPLE');
+}, 'LOCAL_CONTEXT', 'ACTIONS', 'EXAMPLE');
 
 console.log('types', types);
 

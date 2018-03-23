@@ -6,7 +6,7 @@ import { createGenerateClassName, jssPreset } from 'material-ui/styles';
 
 import CssBaseline from 'material-ui/CssBaseline';
 
-import App from '../App';
+import App from '../App/index';
 
 export default class Root extends Component {
   static contextTypes = {

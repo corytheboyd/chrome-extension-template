@@ -7,8 +7,8 @@ import { blue } from 'material-ui/colors'
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 
-import { initialize } from '../../redux/actions/app';
-import { isInitialized } from '../../redux/selectors/app';
+import { initialize } from '../../redux/contexts/local/actions/app/index';
+import { isInitialized } from '../../redux/contexts/local/selectors/app/index';
 
 const styles = theme => ({
   root: {

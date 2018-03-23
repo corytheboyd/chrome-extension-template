@@ -1,7 +1,11 @@
 import Repository from './Repository';
 
+export {
+  Repository,
+};
+
 export default class PortManager {
-  constructor(repository = new Repository()) {
+  constructor(repository) {
     this.repository = repository;
   }
 

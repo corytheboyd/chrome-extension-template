@@ -1,7 +1,8 @@
-import PortManager from './PortManager';
+import PortManager, { Repository as PortRepository } from './PortManager';
 import TabManager from './TabManager';
 
-const portManager = new PortManager();
+const portRepository = new PortRepository();
+const portManager = new PortManager(portRepository);
 const tabManager = new TabManager(portManager);
 
 global.tabManager = tabManager;

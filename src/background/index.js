@@ -1,3 +1,13 @@
+import PortManager from './PortManager';
+import TabManager from './TabManager';
+
+const portManager = new PortManager();
+const tabManager = new TabManager(portManager);
+
+global.tabManager = tabManager;
+
+tabManager.registerWatchers();
+
 const createDebugNotification = (event, details = null) => {
   console.debug(event, details);
 

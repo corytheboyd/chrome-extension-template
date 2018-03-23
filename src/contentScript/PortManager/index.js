@@ -59,9 +59,12 @@ export default class PortManager {
    * */
   buildReduxMiddleware() {
     return store => next => action => {
+      // TODO check to ensure store is JSON serialization on EACH call. Should help for debugging.
+
       // Forward to background
       if (this.port) {
-        this.port.postMessage(action);
+        const state = store.getState();
+        this.port.postMessage({ state, action });
       }
 
       next(action);

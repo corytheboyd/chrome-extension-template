@@ -2,11 +2,13 @@ export default class ActionHandler {
   constructor() {}
 
   /**
+   * @param {object} state
    * @param {object} action
    *
    * @return {void}
    * */
-  process(action) {
+  process(state, action) {
+    console.info('state', state);
     console.info('action', action);
 
     // TODO the world is your oyster from here. Things we will need:

@@ -15,8 +15,10 @@ export default class PortManager {
   }
 
   _onPortMessage = (message) => {
+    const { state, action } = message;
+
     // TODO multiplex message. Assuming it's a FSA meant for Redux right now
-    this.actionHandler.process(message);
+    this.actionHandler.process(state, action);
   };
 
   _registerPortListeners = (port) => {

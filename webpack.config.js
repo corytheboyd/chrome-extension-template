@@ -5,8 +5,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    background: './src/background/index.js',
-    contentScript: './src/contentScript/index.js',
+    background: './src/background/root.js',
+    contentScript: './src/contentScript/root.js',
   },
   output: {
     path: path.resolve(__dirname, 'build'),

@@ -1,5 +1,11 @@
-import { createStore } from 'redux';
-import rootReducer from './contexts/local/reducers/index';
+import { createStore, combineReducers } from 'redux';
+import localReducer from './contexts/local/reducers';
+import globalReducer from './contexts/global/reducers';
+
+const rootReducer = combineReducers({
+  local: localReducer,
+  global: globalReducer,
+});
 
 const store = createStore(rootReducer);
 

@@ -1,9 +1,10 @@
 import createActionTypes from '../../../../../lib/create-action-types';
 
 export const types = createActionTypes({
-  INITIALIZE: null,
-}, 'LOCAL_CONTEXT', 'ACTIONS', 'EXAMPLE');
+  SET_IS_UPDATE_AVAILABLE: null,
+}, 'GLOBAL_CONTEXT', 'ACTIONS', 'EXAMPLE');
 
-export const initialize = () => ({
+export const setIsUpdateAvailable = value => ({
   type: types.INITIALIZE,
+  payload: value,
 });

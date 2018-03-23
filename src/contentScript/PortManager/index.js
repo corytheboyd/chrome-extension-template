@@ -53,4 +53,18 @@ export default class PortManager {
   onMessage(handler) {
     this.messageHandler = handler;
   }
+
+  /**
+   * @return {function}
+   * */
+  buildReduxMiddleware() {
+    return store => next => action => {
+      // Forward to background
+      if (this.port) {
+        this.port.postMessage(action);
+      }
+
+      next(action);
+    };
+  }
 }

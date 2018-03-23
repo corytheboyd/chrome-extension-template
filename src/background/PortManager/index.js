@@ -9,6 +9,18 @@ export default class PortManager {
     this.repository = repository;
   }
 
+  _onPortMessage = (message) => {
+    console.log('PORT MESSAGE', message);
+  };
+
+  _registerPortListeners = (port) => {
+    port.onMessage.addListener(this._onPortMessage);
+  };
+
+  _unregisterPortListeners = (port) => {
+    port.onMessage.removeListener(this._onPortMessage);
+  };
+
   /**
    * @param {string} tabId
    * @param {Port} port Chrome Port object
@@ -17,6 +29,8 @@ export default class PortManager {
    * */
   register(tabId, port) {
     this.repository.set(tabId, port);
+
+    this._registerPortListeners(port);
   }
 
   /**
@@ -26,7 +40,10 @@ export default class PortManager {
    * */
   unregister(tabId) {
     const port = this.repository.get(tabId);
+
+    this._unregisterPortListeners(port);
     port.disconnect();
+
     this.repository.delete(tabId);
   }
 

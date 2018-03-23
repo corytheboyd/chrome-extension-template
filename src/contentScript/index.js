@@ -4,29 +4,26 @@ import PortManager from './PortManager';
 import { initialize as initializeUi } from '../ui';
 import rootReducer from '../redux';
 
-/**
- * Watch for Global effects. Forward them to the background for processing.
- * */
-const middleware = store => next => action => {
-  if (action.meta && action.meta.source === 'GLOBAL') {
-
-  }
-
-  next(action);
-};
+const portManager = new PortManager();
+portManager.registerWatchers();
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(middleware)
+  applyMiddleware(
+    portManager.buildReduxMiddleware(),
+  ),
 );
-global.store = store;
 
-const portManager = new PortManager();
-portManager.registerWatchers();
+// Message received from background
 portManager.onMessage((message) => {
-  console.info('MESSAGE', message);
+  console.info('MESSAGE FROM BACKGROUND', message);
+
+  // TODO multiplex message. Assuming it's a FSA meant for Redux right now
+  store.dispatch(message);
 });
 
+
+global.store = store;
 global.portManager = portManager;
 
 // Build UI container div and add to main page document.
